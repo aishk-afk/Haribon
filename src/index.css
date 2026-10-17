@@ -6,7 +6,11 @@
   --card: #ffffff;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: system-ui, sans-serif;
@@ -33,10 +37,19 @@ body {
   position: relative;
 }
 
-.logo { color: white; }
-.logo span { color: var(--accent); }
+.logo {
+  color: white;
+}
 
-.nav-links { display: flex; gap: 2rem; list-style: none; }
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
 
 .nav-links a {
   color: #cbd5e1;
@@ -68,9 +81,21 @@ body {
   min-height: 70vh;
 }
 
-.hero { text-align: center; padding: 4rem 1rem; }
-.hero h1 { font-size: 2.6rem; margin-bottom: 1rem; }
-.hero-text { max-width: 600px; margin: 0 auto; color: #64748b; }
+.hero {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+.hero-text {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #64748b;
+}
 
 .card {
   background: var(--card);
@@ -79,7 +104,9 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-.about h1 { margin-bottom: 1rem; }
+.about h1 {
+  margin-bottom: 1rem;
+}
 
 .footer {
   text-align: center;
@@ -89,7 +116,9 @@ body {
 }
 
 @media (max-width: 640px) {
-  .menu-btn { display: block; }
+  .menu-btn {
+    display: block;
+  }
 
   .nav-links {
     display: none;
@@ -103,7 +132,80 @@ body {
     padding: 1rem 1.5rem;
   }
 
-  .nav-links.show { display: flex; }
-  .nav-links li { padding: 0.6rem 0; }
-  .hero h1 { font-size: 2rem; }
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links li {
+    padding: 0.6rem 0;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--dark);
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.donate {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.donate p {
+  margin-bottom: 1rem;
+  color: #64748b;
+}
+
+.amounts {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.amount {
+  flex: 1;
+  padding: 0.8rem;
+  border: 2px solid #e2e8f0;
+  background: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.amount.selected {
+  border-color: var(--accent);
+  background: #e0f2fe;
+  font-weight: 700;
+}
+
+.pay-btn {
+  width: 100%;
+}
+
+.error {
+  color: #dc2626;
+  margin-top: 0.8rem;
+}
+
+.thanks {
+  text-align: center;
+  padding: 1rem;
 }

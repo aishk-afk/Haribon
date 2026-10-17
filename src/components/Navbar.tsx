@@ -24,6 +24,9 @@ function Navbar() {
           <li>
             <NavLink to="/about" onClick={() => setOpen(false)}>About Me</NavLink>
           </li>
+          <li>
+            <NavLink to="/donate" onClick={() => setOpen(false)}>Donate</NavLink>
+          </li>
         </ul>
       </div>
     </header>

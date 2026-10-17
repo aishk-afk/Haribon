@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Home() {
   return (
     <section className="hero">
@@ -9,6 +11,7 @@ function Home() {
         <br />
         Haribon aims to promote environmental awareness and conservation efforts.
       </p>
+      <Link to="/donate" className="btn">Donate now</Link>
     </section>
   );
 }
