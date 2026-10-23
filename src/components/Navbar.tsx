@@ -3,11 +3,14 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   return (
     <header className="navbar">
       <div className="navbar-inner">
-        <h2 className="logo">Haribon<span>.</span></h2>
+        <NavLink to="/" className="logo" onClick={close}>
+          🦅 Haribon<span>Foundation</span>
+        </NavLink>
 
         <button
           className="menu-btn"
@@ -18,15 +21,8 @@ function Navbar() {
         </button>
 
         <ul className={`nav-links ${open ? "show" : ""}`}>
-          <li>
-            <NavLink to="/" end onClick={() => setOpen(false)}>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/about" onClick={() => setOpen(false)}>About Me</NavLink>
-          </li>
-          <li>
-            <NavLink to="/donate" onClick={() => setOpen(false)}>Donate</NavLink>
-          </li>
+          <li><NavLink to="/" end onClick={close}>Home</NavLink></li>
+          <li><NavLink to="/about" onClick={close}>About Me</NavLink></li>
         </ul>
       </div>
     </header>

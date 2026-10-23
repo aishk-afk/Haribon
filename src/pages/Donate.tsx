@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
@@ -31,33 +32,55 @@ function Donate() {
   }
 
   return (
-    <section className="donate card">
-      <h1>Support Haribon</h1>
-      <p>Your donation helps fund environmental education and conservation.</p>
+    <section className="donate-page">
+      <div className="wrap donate-layout">
+        <div className="donate-info">
+          <Link to="/" className="back-link">← Back to home</Link>
+          <p className="eyebrow">Support Haribon</p>
+          <h1>Help protect the Philippines’ forests and wildlife</h1>
+          <p>
+            Since 1972, Haribon has championed biodiversity conservation, inspired by
+            the Philippine Eagle. Choose an amount to support that mission.
+          </p>
+          <ul className="donate-points">
+            <li>Protecting forests and critical habitats</li>
+            <li>Saving threatened species</li>
+            <li>Empowering communities to care for nature</li>
+          </ul>
+        </div>
 
-      {!clientSecret ? (
-        <>
-          <div className="amounts">
-            {amounts.map((a) => (
-              <button
-                key={a}
-                className={`amount ${a === amount ? "selected" : ""}`}
-                onClick={() => setAmount(a)}
-              >
-                ${a}
+        <div className="donate card">
+          <h2>Make a donation</h2>
+          <p className="demo-note">
+            Demo mode: pay with test card 4242 4242 4242 4242, any future date, any CVC.
+            No real money is charged.
+          </p>
+
+          {!clientSecret ? (
+            <>
+              <div className="amounts">
+                {amounts.map((a) => (
+                  <button
+                    key={a}
+                    className={`amount ${a === amount ? "selected" : ""}`}
+                    onClick={() => setAmount(a)}
+                  >
+                    ${a}
+                  </button>
+                ))}
+              </div>
+              <button className="btn" onClick={startPayment} disabled={loading}>
+                {loading ? "Loading..." : "Continue to payment"}
               </button>
-            ))}
-          </div>
-          <button className="btn" onClick={startPayment} disabled={loading}>
-            {loading ? "Loading..." : "Continue to payment"}
-          </button>
-          {error && <p className="error">{error}</p>}
-        </>
-      ) : (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm amount={amount} />
-        </Elements>
-      )}
+              {error && <p className="error">{error}</p>}
+            </>
+          ) : (
+            <Elements stripe={stripePromise} options={{ clientSecret }}>
+              <CheckoutForm amount={amount} />
+            </Elements>
+          )}
+        </div>
+      </div>
     </section>
   );
 }
