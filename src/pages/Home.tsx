@@ -1,30 +1,36 @@
 import { Link } from "react-router-dom";
 import hero from "../assets/philippine eagle.jpg";
+import Icon from "../components/Icon";
+import type { IconName } from "../components/Icon";
 
-const actions = [
-  { icon: "💚", title: "Donate", text: "Support conservation work across the country.", to: "/donate" },
-  { icon: "👥", title: "Be a member", text: "Join a community of nature defenders.", href: "https://haribon.org.ph/become-a-member/" },
-  { icon: "🤝", title: "Partner with us", text: "Work with Haribon on programs that matter.", href: "https://haribon.org.ph/partner-with-us/" },
-  { icon: "🌱", title: "Volunteer", text: "Plant trees, watch birds and join cleanups.", href: "https://haribon.org.ph/events-calendar/" },
+const actions: { icon: IconName; title: string; text: string; to?: string; href?: string }[] = [
+  { icon: "donate", title: "Donate", text: "Support conservation work across the country.", to: "/donate" },
+  { icon: "member", title: "Be a member", text: "Join a community of nature defenders.", href: "https://haribon.org.ph/become-a-member/" },
+  { icon: "partner", title: "Partner with us", text: "Work with Haribon on programs that matter.", href: "https://haribon.org.ph/partner-with-us/" },
+  { icon: "volunteer", title: "Volunteer", text: "Plant trees, watch birds and join cleanups.", href: "https://haribon.org.ph/events-calendar/" },
 ];
 
-const pillars = [
+const pillars: { icon: IconName; title: string; text: string; programs: string[] }[] = [
   {
+    icon: "forest",
     title: "Conserving Sites & Habitats",
     text: "Protecting forests and critical habitats, from the Sierra Madre to the mountains of Panay.",
     programs: ["Forests for Life", "Central Sierra Madre", "Central Panay Mountain Range", "Project AGOS"],
   },
   {
+    icon: "species",
     title: "Saving Species",
     text: "Defending threatened wildlife and stopping the illegal trade that endangers it.",
     programs: ["Species of Hope", "Illegal Parrot Trade"],
   },
   {
+    icon: "people",
     title: "Empowering People",
     text: "Teaching communities and young people to look after the nature around them.",
     programs: ["WePhili Project", "Biodiversity on the Move", "Junior Sea Guardians"],
   },
   {
+    icon: "sustainability",
     title: "Encouraging Sustainability",
     text: "Building membership, volunteering and advocacy that keep conservation going.",
     programs: ["Membership & Volunteer Program", "NbS & BDFE", "Communications & Advocacy"],
@@ -56,13 +62,13 @@ function Home() {
             {actions.map((a) =>
               a.to ? (
                 <Link key={a.title} to={a.to} className="action-card">
-                  <span className="icon">{a.icon}</span>
+                  <Icon name={a.icon} size={32} badge="green" />
                   <h3>{a.title}</h3>
                   <p>{a.text}</p>
                 </Link>
               ) : (
                 <a key={a.title} href={a.href} target="_blank" rel="noreferrer" className="action-card">
-                  <span className="icon">{a.icon}</span>
+                  <Icon name={a.icon} size={32} badge="green" />
                   <h3>{a.title}</h3>
                   <p>{a.text}</p>
                 </a>
@@ -89,6 +95,7 @@ function Home() {
           <div className="grid-2">
             {pillars.map((p) => (
               <article key={p.title} className="pillar card">
+                <Icon name={p.icon} size={30} badge="green" />
                 <h3>{p.title}</h3>
                 <p>{p.text}</p>
                 <ul>

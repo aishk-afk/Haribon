@@ -89,13 +89,21 @@ img {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   color: white;
   text-decoration: none;
   font-weight: 700;
   font-size: 1.2rem;
 }
 
-.logo span {
+.logo-text {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.logo-text span {
   color: var(--gold);
   font-weight: 500;
   margin-left: 0.35rem;
@@ -128,8 +136,9 @@ img {
   background: none;
   border: none;
   color: white;
-  font-size: 1.6rem;
   cursor: pointer;
+  line-height: 0;
+  padding: 0.3rem;
 }
 
 /* ---------- Buttons ---------- */
@@ -254,19 +263,17 @@ img {
   background: var(--card);
   padding: 2rem 1.5rem;
   border-radius: 16px;
+  border-top: 3px solid transparent;
   text-align: center;
   text-decoration: none;
   box-shadow: 0 6px 18px rgba(20, 57, 31, 0.08);
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .action-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 14px 28px rgba(20, 57, 31, 0.16);
-}
-
-.action-card .icon {
-  font-size: 2.2rem;
+  border-top-color: var(--gold);
 }
 
 .action-card h3 {
@@ -303,6 +310,51 @@ img {
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
+}
+
+/* ---------- Icons ---------- */
+.icon-white {
+  color: #ffffff;
+}
+
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  color: var(--green-700);
+  transition: background 0.25s, color 0.25s;
+}
+
+.icon-badge.green {
+  background: var(--green-100);
+}
+
+.icon-badge.white {
+  background: #ffffff;
+  color: var(--green-900);
+}
+
+.action-card .icon-badge,
+.pillar .icon-badge,
+.thanks .icon-badge {
+  display: flex;
+  border-radius: 18px;
+}
+
+.action-card .icon-badge,
+.thanks .icon-badge {
+  margin: 0 auto 0.8rem;
+}
+
+.pillar .icon-badge {
+  margin-bottom: 1rem;
+}
+
+.action-card:hover .icon-badge {
+  background: var(--green-700);
+  color: #ffffff;
 }
 
 /* ---------- Stats band ---------- */
@@ -416,14 +468,14 @@ img {
 .donate-points {
   list-style: none;
   display: grid;
-  gap: 0.6rem;
+  gap: 0.8rem;
   margin-top: 1.5rem;
 }
 
-.donate-points li::before {
-  content: "✔";
-  color: var(--gold);
-  margin-right: 0.7rem;
+.donate-points li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .donate {
@@ -520,10 +572,31 @@ img {
   color: var(--gold);
 }
 
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.icon-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
 .socials {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   margin-top: 0.8rem;
+}
+
+.socials a {
+  line-height: 0;
+  transition: transform 0.2s;
+}
+
+.socials a:hover {
+  transform: translateY(-3px);
 }
 
 .footer-bottom {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import Icon from "./Icon";
 
 function CheckoutForm({ amount }: { amount: number }) {
   const stripe = useStripe();
@@ -28,7 +29,8 @@ function CheckoutForm({ amount }: { amount: number }) {
   if (paid) {
     return (
       <div className="thanks">
-        <h2>Thank you! 🌱</h2>
+        <Icon name="volunteer" size={34} badge="green" />
+        <h2>Thank you!</h2>
         <p>Your ${amount} donation will help Haribon protect our environment.</p>
       </div>
     );

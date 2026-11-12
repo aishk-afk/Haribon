@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
+import Icon from "../components/Icon";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 const amounts = [5, 10, 25, 50];
@@ -22,8 +23,13 @@ function Donate() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      const text = await res.text();
+      const data = text ? JSON.parse(text) : null;
+      if (!res.ok || !data) {
+        throw new Error(
+          data?.error ?? "Cannot reach the payment server. Make sure npm run server is running."
+        );
+      }
       setClientSecret(data.clientSecret);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
@@ -43,9 +49,9 @@ function Donate() {
             the Philippine Eagle. Choose an amount to support that mission.
           </p>
           <ul className="donate-points">
-            <li>Protecting forests and critical habitats</li>
-            <li>Saving threatened species</li>
-            <li>Empowering communities to care for nature</li>
+            <li><Icon name="forest" size={18} badge="white" /> Protecting forests and critical habitats</li>
+            <li><Icon name="species" size={18} badge="white" /> Saving threatened species</li>
+            <li><Icon name="people" size={18} badge="white" /> Empowering communities to care for nature</li>
           </ul>
         </div>
 

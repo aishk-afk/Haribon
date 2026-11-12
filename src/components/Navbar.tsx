@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import Icon from "./Icon";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,7 +10,8 @@ function Navbar() {
     <header className="navbar">
       <div className="navbar-inner">
         <NavLink to="/" className="logo" onClick={close}>
-          🦅 Haribon<span>Foundation</span>
+          <Icon name="logo" size={22} badge="white" />
+          <span className="logo-text">Haribon <span>Foundation</span></span>
         </NavLink>
 
         <button
@@ -17,7 +19,7 @@ function Navbar() {
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          {open ? "✕" : "☰"}
+          <Icon name={open ? "close" : "menu"} size={24} white />
         </button>
 
         <ul className={`nav-links ${open ? "show" : ""}`}>
