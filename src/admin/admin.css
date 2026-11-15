@@ -1,0 +1,200 @@
+/* Haribon CMS dashboard. Uses the same palette as the public site (see :root in index.css). */
+
+.adm {
+  min-height: 100vh;
+  background: #eef3ef;
+  color: var(--text);
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+.adm h1 { font-size: 1.7rem; color: var(--green-900); margin-bottom: 0.3rem; }
+.adm h2 { font-size: 1.2rem; color: var(--green-900); margin: 1.5rem 0 0.6rem; }
+.adm a { color: var(--green-700); }
+.adm code { background: var(--green-100); color: var(--green-700); padding: 0.1rem 0.45rem; border-radius: 6px; font-size: 0.82rem; }
+
+/* ---------- top bar ---------- */
+.adm-top {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.5rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--green-900);
+  color: #fff;
+}
+
+.adm-brand { font-size: 1.05rem; }
+.adm-nav { display: flex; flex-wrap: wrap; gap: 0.3rem; flex: 1; }
+
+.adm-nav a {
+  color: #d5e8db;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+
+.adm-nav a:hover { background: rgba(255, 255, 255, 0.1); }
+.adm-nav a.active { background: var(--gold); color: var(--green-900); }
+
+.adm-user { display: flex; align-items: center; gap: 0.9rem; font-size: 0.85rem; }
+.adm-user a { color: var(--gold); }
+.adm-user .adm-muted { color: #b9d3c1; }
+
+.adm-main { max-width: 1050px; margin: 0 auto; padding: 1.8rem 1.5rem 4rem; }
+
+/* ---------- cards, text ---------- */
+.adm-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.3rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 10px rgba(20, 57, 31, 0.08);
+}
+
+.adm-muted { color: var(--muted); font-size: 0.9rem; }
+.adm-muted.center { text-align: center; margin-top: 1rem; }
+.adm-link { background: none; border: none; color: inherit; text-decoration: underline; cursor: pointer; font: inherit; }
+
+.adm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.adm-stat { display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; margin: 0; transition: transform 0.2s, box-shadow 0.2s; }
+.adm-stat:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(20, 57, 31, 0.15); }
+.adm-stat strong { font-size: 1.1rem; color: var(--green-900); }
+
+/* ---------- forms ---------- */
+.adm-form { display: grid; gap: 1rem; }
+.adm-two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.adm-field { display: flex; flex-direction: column; gap: 0.3rem; }
+.adm-label { font-weight: 600; font-size: 0.85rem; color: var(--green-900); }
+.adm-hint { font-size: 0.78rem; color: var(--muted); }
+
+.adm input[type="text"],
+.adm input[type="email"],
+.adm input[type="url"],
+.adm input[type="password"],
+.adm input[type="number"],
+.adm input:not([type]),
+.adm select,
+.adm textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid #cdd9d1;
+  border-radius: 9px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.93rem;
+  color: var(--text);
+}
+
+.adm textarea { resize: vertical; line-height: 1.5; }
+.adm input:disabled { background: #f0f3f1; color: var(--muted); }
+
+.adm input:focus-visible,
+.adm select:focus-visible,
+.adm textarea:focus-visible,
+.adm-btn:focus-visible,
+.adm a:focus-visible,
+.adm summary:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- buttons ---------- */
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.1rem;
+  border: 1.5px solid #b9c9be;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--green-900);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.adm-btn:hover { background: var(--green-100); }
+.adm-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.adm-btn.primary { background: var(--green-700); border-color: var(--green-700); color: #fff; }
+.adm-btn.primary:hover { background: var(--green-900); }
+.adm-btn.danger { color: #b42318; border-color: #f0b8b3; }
+.adm-btn.danger:hover { background: #fdecea; }
+.adm-btn.small { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
+.adm-btn.full { width: 100%; }
+.adm-btn.file { position: relative; overflow: hidden; }
+.adm-btn.file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.adm-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: flex-end; margin: 0.6rem 0; align-items: center; }
+.adm-actions.start { justify-content: flex-start; }
+
+/* ---------- notices and badges ---------- */
+.adm-notice {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  margin: 0.8rem 0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.adm-notice.success { background: #e3f4e8; color: #14532d; border: 1px solid #b5dfc1; }
+.adm-notice.error { background: #fdecea; color: #8f1d14; border: 1px solid #f0b8b3; }
+
+.adm-badge { display: inline-block; padding: 0.15rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.adm-badge.published { background: #e3f4e8; color: #14532d; }
+.adm-badge.draft { background: #fff3d6; color: #7a5200; }
+
+/* ---------- tables ---------- */
+.adm-table-wrap { padding: 0; overflow-x: auto; }
+.adm-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.adm-table th { text-align: left; padding: 0.8rem 1rem; background: var(--green-100); color: var(--green-900); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.adm-table td { padding: 0.8rem 1rem; border-top: 1px solid #e3ebe6; vertical-align: middle; }
+.adm-row-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+/* ---------- collapsible sections ---------- */
+.adm-details > summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; list-style-position: inside; }
+.adm-details[open] > summary { margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid #e3ebe6; }
+
+/* ---------- images ---------- */
+.adm-image-picker { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.adm-preview { width: 150px; height: 100px; border-radius: 10px; background: #eef3ef; border: 1.5px dashed #b9c9be; display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--muted); font-size: 0.8rem; }
+.adm-preview img { width: 100%; height: 100%; object-fit: cover; }
+.adm-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.adm-media-item { margin: 0; padding: 0.6rem; }
+.adm-media-item img { width: 100%; height: 130px; object-fit: cover; border-radius: 9px; }
+.adm-media-item figcaption { display: flex; flex-direction: column; gap: 0.3rem; padding-top: 0.6rem; }
+.adm-media-item strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.85rem; }
+.adm-media-pick { display: flex; flex-direction: column; gap: 0.3rem; padding: 0.4rem; border: 2px solid transparent; border-radius: 10px; background: #fff; cursor: pointer; font: inherit; text-align: left; }
+.adm-media-pick:hover { border-color: var(--green-500); }
+.adm-media-pick img { width: 100%; height: 90px; object-fit: cover; border-radius: 8px; }
+.adm-media-pick span { font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- dialogs ---------- */
+.adm-overlay { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(10, 35, 20, 0.55); }
+.adm-dialog { background: #fff; border-radius: 14px; padding: 1.5rem; width: 100%; max-width: 440px; max-height: 90vh; overflow: auto; }
+.adm-dialog.wide { max-width: 760px; }
+.adm-dialog h2 { margin-top: 0; }
+
+/* ---------- login ---------- */
+.adm-login { display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: linear-gradient(135deg, var(--green-900), var(--green-700)); }
+.adm-login-card { width: 100%; max-width: 400px; display: grid; gap: 1rem; }
+
+/* ---------- small screens: tables become stacked cards ---------- */
+@media (max-width: 760px) {
+  .adm-two { grid-template-columns: 1fr; }
+  .adm-user { width: 100%; justify-content: space-between; }
+
+  .adm-table thead { display: none; }
+  .adm-table, .adm-table tbody, .adm-table tr, .adm-table td { display: block; width: 100%; }
+  .adm-table tr { border-top: 1px solid #e3ebe6; padding: 0.5rem 0; }
+  .adm-table td { border: none; padding: 0.3rem 1rem; }
+  .adm-table td[data-label]::before { content: attr(data-label) ": "; font-weight: 600; color: var(--green-900); }
+  .adm-table td.adm-row-actions::before { display: none; }
+}

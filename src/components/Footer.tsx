@@ -1,38 +1,52 @@
 import { Link } from "react-router-dom";
+import { useSettings } from "../context/settings";
 import Icon from "./Icon";
 
 function Footer() {
+  const s = useSettings();
+
   return (
     <footer className="footer">
       <div className="wrap footer-grid">
         <div>
           <h3 className="footer-brand">
-            <Icon name="logo" size={20} badge="white" /> Haribon Foundation
+            <Icon name="logo" size={20} badge="white" /> {s.org_name}
           </h3>
-          <p>Leading conservation in the Philippines since 1972.</p>
+          {s.footer_description && <p>{s.footer_description}</p>}
           <div className="socials">
-            <a href="https://www.facebook.com/GoHaribon" target="_blank" rel="noreferrer" aria-label="Facebook">
-              <Icon name="facebook" size={16} badge="white" />
-            </a>
-            <a href="https://www.instagram.com/goharibon/" target="_blank" rel="noreferrer" aria-label="Instagram">
-              <Icon name="instagram" size={16} badge="white" />
-            </a>
-            <a href="https://ph.linkedin.com/company/goharibon" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <Icon name="linkedin" size={16} badge="white" />
-            </a>
+            {s.facebook_url && (
+              <a href={s.facebook_url} target="_blank" rel="noreferrer" aria-label="Facebook">
+                <Icon name="facebook" size={16} badge="white" />
+              </a>
+            )}
+            {s.instagram_url && (
+              <a href={s.instagram_url} target="_blank" rel="noreferrer" aria-label="Instagram">
+                <Icon name="instagram" size={16} badge="white" />
+              </a>
+            )}
+            {s.linkedin_url && (
+              <a href={s.linkedin_url} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <Icon name="linkedin" size={16} badge="white" />
+              </a>
+            )}
           </div>
         </div>
 
         <div>
           <h4>Contact</h4>
-          <p className="icon-line">
-            <Icon name="location" size={16} badge="white" />
-            <span>Manila Observatory Bldg, Rm 212, Ateneo de Manila University, Katipunan Avenue, Loyola Heights, Quezon City 1108</span>
-          </p>
-          <p className="icon-line">
-            <Icon name="email" size={16} badge="white" />
-            <span>hello@haribon.org.ph</span>
-          </p>
+          {s.contact_address && (
+            <p className="icon-line">
+              <Icon name="location" size={16} badge="white" />
+              <span>{s.contact_address}</span>
+            </p>
+          )}
+          {s.contact_email && (
+            <p className="icon-line">
+              <Icon name="email" size={16} badge="white" />
+              <span>{s.contact_email}</span>
+            </p>
+          )}
+          {s.contact_phone && <p className="icon-line"><span>{s.contact_phone}</span></p>}
         </div>
 
         <div>
@@ -45,11 +59,8 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>
-          © 2026 Student project inspired by the Haribon Foundation. Donations on this
-          site run in Stripe test mode and no real money is collected.
-        </p>
-        <p>Icons from Lucide and Font Awesome Free, via react-icons.</p>
+        {s.footer_notice && <p>{s.footer_notice}</p>}
+        {s.credits_note && <p>{s.credits_note}</p>}
       </div>
     </footer>
   );

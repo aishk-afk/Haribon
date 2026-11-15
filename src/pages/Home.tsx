@@ -1,120 +1,147 @@
-import { Link } from "react-router-dom";
-import hero from "../assets/philippine eagle.jpg";
+import fallbackHero from "../assets/philippine eagle.jpg";
+import Announcements from "../components/Announcements";
 import Icon from "../components/Icon";
-import type { IconName } from "../components/Icon";
+import Paragraphs from "../components/Paragraphs";
+import SmartLink from "../components/SmartLink";
+import { ErrorMessage, Loading } from "../components/StatusViews";
+import { assetUrl, publicApi } from "../lib/api";
+import { isIconName } from "../lib/icons";
+import { sectionByKey, sectionsWithPrefix } from "../lib/sections";
+import { useAsync } from "../lib/useAsync";
 
-const actions: { icon: IconName; title: string; text: string; to?: string; href?: string }[] = [
-  { icon: "donate", title: "Donate", text: "Support conservation work across the country.", to: "/donate" },
-  { icon: "member", title: "Be a member", text: "Join a community of nature defenders.", href: "https://haribon.org.ph/become-a-member/" },
-  { icon: "partner", title: "Partner with us", text: "Work with Haribon on programs that matter.", href: "https://haribon.org.ph/partner-with-us/" },
-  { icon: "volunteer", title: "Volunteer", text: "Plant trees, watch birds and join cleanups.", href: "https://haribon.org.ph/events-calendar/" },
-];
-
-const pillars: { icon: IconName; title: string; text: string; programs: string[] }[] = [
-  {
-    icon: "forest",
-    title: "Conserving Sites & Habitats",
-    text: "Protecting forests and critical habitats, from the Sierra Madre to the mountains of Panay.",
-    programs: ["Forests for Life", "Central Sierra Madre", "Central Panay Mountain Range", "Project AGOS"],
-  },
-  {
-    icon: "species",
-    title: "Saving Species",
-    text: "Defending threatened wildlife and stopping the illegal trade that endangers it.",
-    programs: ["Species of Hope", "Illegal Parrot Trade"],
-  },
-  {
-    icon: "people",
-    title: "Empowering People",
-    text: "Teaching communities and young people to look after the nature around them.",
-    programs: ["WePhili Project", "Biodiversity on the Move", "Junior Sea Guardians"],
-  },
-  {
-    icon: "sustainability",
-    title: "Encouraging Sustainability",
-    text: "Building membership, volunteering and advocacy that keep conservation going.",
-    programs: ["Membership & Volunteer Program", "NbS & BDFE", "Communications & Advocacy"],
-  },
-];
+const fetchHome = () => publicApi.page("home");
+const fetchPrograms = () => publicApi.programs();
 
 function Home() {
+  const page = useAsync(fetchHome);
+  const programs = useAsync(fetchPrograms);
+
+  if (page.loading || programs.loading) return <Loading />;
+
+  const error = page.error ?? programs.error;
+  if (error || !page.data) {
+    return (
+      <ErrorMessage
+        message={error ?? "This page is not available right now."}
+        onRetry={() => {
+          page.reload();
+          programs.reload();
+        }}
+      />
+    );
+  }
+
+  const sections = page.data.sections ?? [];
+  const hero = sectionByKey(sections, "hero");
+  const actionsIntro = sectionByKey(sections, "actions_intro");
+  const actions = sectionsWithPrefix(sections, "action_");
+  const stats = sectionsWithPrefix(sections, "stat_");
+  const pillarsIntro = sectionByKey(sections, "pillars_intro");
+  const announcementsIntro = sectionByKey(sections, "announcements_intro");
+  const cta = sectionByKey(sections, "cta");
+
   return (
     <>
-      <section className="hero" style={{ backgroundImage: `url(${hero})` }}>
-        <div className="wrap hero-content">
-          <p className="eyebrow">Since 1972</p>
-          <h1>Leading conservation in the Philippines for over 50 years</h1>
-          <p className="hero-text">
-            Inspired by the Philippine Eagle, the Haring Ibon, Haribon works with
-            members and communities to protect our shared ecosystems.
-          </p>
-          <div className="hero-buttons">
-            <Link to="/donate" className="btn btn-gold">Donate now</Link>
-            <a href="#pillars" className="btn btn-outline">Our work</a>
+      {hero && (
+        <section
+          className="hero"
+          style={{ backgroundImage: `url(${assetUrl(hero.image_url) ?? fallbackHero})` }}
+        >
+          <div className="wrap hero-content">
+            {hero.eyebrow && <p className="eyebrow">{hero.eyebrow}</p>}
+            <h1>{hero.heading}</h1>
+            {hero.body && <p className="hero-text">{hero.body}</p>}
+            <div className="hero-buttons">
+              {hero.button_text && hero.button_url && (
+                <SmartLink to={hero.button_url} className="btn btn-gold">{hero.button_text}</SmartLink>
+              )}
+              {hero.button2_text && hero.button2_url && (
+                <SmartLink to={hero.button2_url} className="btn btn-outline">{hero.button2_text}</SmartLink>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="section">
-        <div className="wrap">
-          <h2 className="section-title">Ways to take part</h2>
-          <div className="grid-4">
-            {actions.map((a) =>
-              a.to ? (
-                <Link key={a.title} to={a.to} className="action-card">
-                  <Icon name={a.icon} size={32} badge="green" />
-                  <h3>{a.title}</h3>
-                  <p>{a.text}</p>
-                </Link>
-              ) : (
-                <a key={a.title} href={a.href} target="_blank" rel="noreferrer" className="action-card">
-                  <Icon name={a.icon} size={32} badge="green" />
-                  <h3>{a.title}</h3>
-                  <p>{a.text}</p>
-                </a>
-              )
-            )}
+      {actions.length > 0 && (
+        <section className="section">
+          <div className="wrap">
+            {actionsIntro?.heading && <h2 className="section-title">{actionsIntro.heading}</h2>}
+            <div className="grid-4">
+              {actions.map((action) => {
+                const content = (
+                  <>
+                    {isIconName(action.icon) && <Icon name={action.icon} size={32} badge="green" />}
+                    <h3>{action.heading}</h3>
+                    {action.body && <p>{action.body}</p>}
+                  </>
+                );
+                return action.button_url ? (
+                  <SmartLink key={action.id} to={action.button_url} className="action-card">
+                    {content}
+                  </SmartLink>
+                ) : (
+                  <div key={action.id} className="action-card">{content}</div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="section band">
-        <div className="wrap stats">
-          <div><strong>1972</strong><span>Year founded</span></div>
-          <div><strong>50+</strong><span>Years of conservation</span></div>
-          <div><strong>4</strong><span>Pillars of our work</span></div>
-        </div>
-      </section>
+      {stats.length > 0 && (
+        <section className="section band">
+          <div className="wrap stats">
+            {stats.map((stat) => (
+              <div key={stat.id}>
+                <strong>{stat.heading}</strong>
+                <span>{stat.body}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="section" id="pillars">
         <div className="wrap">
-          <h2 className="section-title">Our four pillars</h2>
-          <p className="section-sub">
-            Haribon organizes its work around four goals, each with its own programs.
-          </p>
+          {pillarsIntro?.heading && <h2 className="section-title">{pillarsIntro.heading}</h2>}
+          {pillarsIntro?.body && <p className="section-sub">{pillarsIntro.body}</p>}
+          {programs.data && programs.data.length === 0 && <p className="section-sub">No programs have been published yet.</p>}
           <div className="grid-2">
-            {pillars.map((p) => (
-              <article key={p.title} className="pillar card">
-                <Icon name={p.icon} size={30} badge="green" />
-                <h3>{p.title}</h3>
-                <p>{p.text}</p>
-                <ul>
-                  {p.programs.map((program) => (
-                    <li key={program}>{program}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+            {programs.data?.map((program) => {
+              const image = assetUrl(program.image_url);
+              return (
+                <article key={program.id} className="pillar card">
+                  {isIconName(program.icon) && <Icon name={program.icon} size={30} badge="green" />}
+                  <h3>{program.title}</h3>
+                  <Paragraphs text={program.description} />
+                  {image && <img src={image} alt="" className="announcement-image" loading="lazy" />}
+                  {program.items && program.items.length > 0 && (
+                    <ul>
+                      {program.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="cta">
-        <div className="wrap">
-          <h2>Every contribution helps protect the Philippines’ forests and wildlife</h2>
-          <Link to="/donate" className="btn btn-gold">Donate any amount</Link>
-        </div>
-      </section>
+      <Announcements heading={announcementsIntro?.heading ?? "Latest announcements"} />
+
+      {cta && (
+        <section className="cta">
+          <div className="wrap">
+            <h2>{cta.heading}</h2>
+            {cta.button_text && cta.button_url && (
+              <SmartLink to={cta.button_url} className="btn btn-gold">{cta.button_text}</SmartLink>
+            )}
+          </div>
+        </section>
+      )}
     </>
   );
 }
