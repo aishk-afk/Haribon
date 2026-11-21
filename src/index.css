@@ -658,10 +658,24 @@ img {
     padding: 3rem 0;
   }
 }
+
 /* ---------- CMS-driven content: loading, errors, announcements, images ---------- */
-.status-view { max-width: 520px; margin: 6rem auto; padding: 0 1.5rem; text-align: center; color: var(--muted); }
-.status-view h2 { color: var(--green-900); margin-bottom: 0.5rem; }
-.status-view .btn { margin-top: 1rem; }
+.status-view {
+  max-width: 520px;
+  margin: 6rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.status-view h2 {
+  color: var(--green-900);
+  margin-bottom: 0.5rem;
+}
+
+.status-view .btn {
+  margin-top: 1rem;
+}
 
 .spinner {
   display: inline-block;
@@ -674,25 +688,123 @@ img {
   animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-.announcement-card h3 { color: var(--green-700); margin: 0.2rem 0 0.5rem; }
-.announcement-card p + p { margin-top: 0.7rem; }
-.announcement-date { color: var(--muted); font-size: 0.85rem; font-weight: 500; }
-.announcement-image { width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem; }
-.about-image { width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; margin-top: 1rem; }
-.pillar p + p { margin-top: 0.6rem; }
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 3s;
+  }
+}
+
+.announcement-card h3 {
+  color: var(--green-700);
+  margin: 0.2rem 0 0.5rem;
+}
+
+.announcement-card p+p {
+  margin-top: 0.7rem;
+}
+
+.announcement-date {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.announcement-image {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.about-image {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+.pillar p+p {
+  margin-top: 0.6rem;
+}
 
 /* ---------- About: reasons for choosing the organization ---------- */
-.about-reasons { margin-top: 3rem; }
-.about-reasons h2 { font-size: 1.8rem; color: var(--green-900); margin-bottom: 0.4rem; }
-.about-reasons .about-lead { margin-bottom: 1.5rem; }
-.reason-card .icon-badge { display: flex; margin-bottom: 1rem; border-radius: 18px; }
-.reason-card h3 { color: var(--green-700); margin-bottom: 0.4rem; }
-.reason-card p { color: var(--muted); }
+.about-reasons {
+  margin-top: 3rem;
+}
+
+.about-reasons h2 {
+  font-size: 1.8rem;
+  color: var(--green-900);
+  margin-bottom: 0.4rem;
+}
+
+.about-reasons .about-lead {
+  margin-bottom: 1.5rem;
+}
+
+.reason-card .icon-badge {
+  display: flex;
+  margin-bottom: 1rem;
+  border-radius: 18px;
+}
+
+.reason-card h3 {
+  color: var(--green-700);
+  margin-bottom: 0.4rem;
+}
+
+.reason-card p {
+  color: var(--muted);
+}
+
 /* ---------- Pages created in the CMS ---------- */
-.page-buttons { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.2rem; }
-.btn-outline-dark { background: transparent; color: var(--green-700); border: 2px solid var(--green-700); }
-.status-link { text-align: center; margin-bottom: 4rem; }
-.status-link a { color: var(--green-700); font-weight: 600; }
+.page-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--green-700);
+  border: 2px solid var(--green-700);
+}
+
+.status-link {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.status-link a {
+  color: var(--green-700);
+  font-weight: 600;
+}
+
+/* ---------- Donate page: keep the left column fixed when the payment form grows ---------- */
+.donate-page {
+  align-items: flex-start;
+}
+
+.donate-layout {
+  align-items: start;
+}
+
+.donate-info {
+  position: sticky;
+  top: 6rem;
+}
+
+@media (max-width: 760px) {
+  .donate-info {
+    position: static;
+  }
+}
